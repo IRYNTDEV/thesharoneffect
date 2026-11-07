@@ -8,6 +8,7 @@
 - supabase/01_setup.sql — database setup (includes Sharon's email as staff)
 - supabase/02_telegram.sql — Telegram alerts for Sharon
 - supabase/telegram-webhook/index.ts — makes the Confirm buttons in Telegram work
+- supabase/03_reminders.sql — Telegram reminders + calendar view on confirm.html
 
 Keep the assets/ folder next to the pages. Booking only works once the site is online.
 
@@ -45,3 +46,16 @@ Keep the assets/ folder next to the pages. Booking only works once the site is o
 
 Done. When a client taps "I've sent the money", Sharon gets a Telegram message with
 ✅ Payment received / ✖️ Not received buttons. Tapping one updates the client's page instantly.
+
+## Calendar &amp; reminders
+
+confirm.html now has a fourth tab, **Calendar** — a month grid of every booking
+(dots show pending/confirmed), tap a day to see that day's bookings.
+
+To switch on Telegram reminders: SQL Editor → paste `supabase/03_reminders.sql` → Run
+(uses the same bot token and chat ID already set up above). Sharon then gets:
+- One message every morning (7am Lagos time) listing that day's confirmed bookings
+- A reminder about 2 hours before each confirmed booking starts
+
+If the first line errors ("permission denied for extension pg_cron"), go to
+Supabase → Database → Extensions, enable **pg_cron**, then run the file again.
