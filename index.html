@@ -1,0 +1,647 @@
+<!doctype html>
+<!-- Designed & developed by Lenyn's Art / The Sharon Effect — 2026 / Built with intention. Every line deliberate. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sharon Effect — Faces but make it art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Allura&amp;family=Italiana&amp;family=Nanum+Brush+Script&amp;family=Outfit:wght@300;400;500;600&amp;family=Sacramento&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF;color:#2B1A16;font-family:'Outfit',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2B1A16;text-decoration:none}a:hover{color:#E8317A}
+*{box-sizing:border-box}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px;position:relative}
+.disp{font-family:'Italiana',serif;font-weight:400}
+.brush{font-family:'Nanum Brush Script',cursive;color:#E8317A}
+.word{font-family:'Allura',cursive}
+.chrome{background:conic-gradient(from 210deg,#F3D3C8,#FFFFFF,#E2A99A,#FBEDE8,#CF8C7C,#FFFFFF,#EBC1B4,#F3D3C8)}
+.pill{border-radius:999px}
+.sp{position:absolute;color:#DDA08F;pointer-events:none;animation:twinkle 3.2s ease-in-out infinite}
+.sp.pink{color:#E8317A}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px 2px rgba(255,236,214,.9),0 0 22px 6px rgba(255,210,226,.55)}50%{box-shadow:0 0 4px 1px rgba(255,236,214,.6),0 0 12px 3px rgba(255,210,226,.3)}}
+.compact{animation:floaty 7s ease-in-out infinite}
+.scribble path{stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.6s ease .8s forwards}
+.glass{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 32%,rgba(255,255,255,0) 70%,rgba(255,255,255,.25) 100%);pointer-events:none}
+.pan{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.panbtn:hover .pan,.panbtn:focus-visible .pan{transform:scale(1.08) rotate(-6deg)}
+.panbtn .smear{transform:scaleX(.2);opacity:0;transform-origin:left center;transition:transform .5s ease,opacity .3s ease}
+.panbtn:hover .smear,.panbtn:focus-visible .smear{transform:scaleX(1);opacity:1}
+.look{transition:transform .4s cubic-bezier(.3,1.3,.5,1)}
+.look:hover{transform:rotate(0deg) translateY(-6px) !important}
+.bulb{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFFFFF 0%,#FFF2DE 45%,#F9D3B9 100%);animation:glow 2.8s ease-in-out infinite}
+.bulb:nth-child(2n){animation-delay:.7s}.bulb:nth-child(3n){animation-delay:1.4s}
+.btn{transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(232,49,122,.22)}
+.heroGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.palette{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:40px 0;align-items:start}
+.palMobile{display:none}
+.fab{position:fixed;right:22px;bottom:30%;z-index:50;display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px 0 16px;border-radius:999px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(232,49,122,.25);box-shadow:0 12px 30px rgba(80,50,40,.18);color:#2B1A16;font-size:15px;font-weight:500;opacity:0;transform:translateY(14px) scale(.96);pointer-events:none;transition:opacity .45s ease,transform .45s ease,background .25s ease}
+.fab.on{opacity:.9;transform:none;pointer-events:auto}
+.fab.on:hover,.fab.on:focus-visible{opacity:1;background:#FFFFFF;color:#2B1A16}
+.fab .ico{width:34px;height:34px;border-radius:50%;background:#E8317A;display:inline-flex;align-items:center;justify-content:center;flex:none}
+@media (max-width:560px){.fab{right:14px;padding:0;width:56px;height:56px;min-height:56px;justify-content:center}.fab .lbl{display:none}.fab .ico{width:44px;height:44px}}
+.looks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 28px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}
+.tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.navl{display:flex;gap:30px;align-items:center}
+.sig{font-family:'Sacramento',cursive;font-size:30px;color:#2B1A16;opacity:.32;transition:opacity .3s ease}
+.sig:hover{opacity:.6;color:#2B1A16}
+@media (max-width:1000px){.heroGrid,.two{grid-template-columns:minmax(0,1fr)}.looks{grid-template-columns:repeat(2,minmax(0,1fr))}.palette{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 0}.tips,.notes{grid-template-columns:minmax(0,1fr)}.navl{display:none}}
+@media (max-width:560px){.wrap{padding:0 20px}.palette{display:none !important}.palMobile{display:block}.case{padding:24px 14px !important;border-radius:26px !important}.caseRim{border-radius:36px !important;padding:10px !important}.shadelbl{display:none !important}.panname{font-size:17px !important}.panprice{font-size:13px !important}}
+.rail{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.track{display:flex;gap:28px;width:max-content;padding:24px 14px 34px;animation:slide 70s linear infinite}
+.track.rev{animation-name:slideRev;animation-duration:60s;gap:22px}
+.rail:hover .track,.rail:focus-within .track{animation-play-state:paused}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes slideRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.note{flex:none;width:340px;background:#FFFFFF;border-radius:28px;padding:30px 30px 26px;box-shadow:0 18px 40px rgba(194,31,99,.12);transition:transform .35s cubic-bezier(.3,1.3,.5,1)}
+.note:hover{transform:rotate(0deg) translateY(-6px) !important}
+.receipt{flex:none;position:relative;background:#FFFFFF;border-radius:20px;padding:10px;box-shadow:0 14px 30px rgba(194,31,99,.12);transition:transform .35s ease}
+.receipt img{display:block;height:132px;width:auto;border-radius:12px}
+.tint{position:absolute;inset:10px;border-radius:12px;background:#F4A6BE;opacity:.32;mix-blend-mode:multiply;pointer-events:none;transition:opacity .35s ease}
+.receipt:hover .tint{opacity:0}
+.receipt:hover{transform:rotate(0deg) scale(1.04) !important}
+.bars{display:flex;align-items:center;gap:3px;height:40px;flex:1;min-width:0}
+.bar{flex:1;min-width:2px;border-radius:3px;transition:background .2s ease}
+.bars.playing .bar{animation:wob 1.1s ease-in-out infinite}
+.bars.playing .bar:nth-child(3n){animation-delay:.2s}.bars.playing .bar:nth-child(4n){animation-delay:.45s}.bars.playing .bar:nth-child(5n){animation-delay:.7s}
+@keyframes wob{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.55)}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}.rail{overflow-x:auto}.bars.playing .bar{animation:none}}
+@media (max-width:640px){.note{width:280px;padding:24px}.receipt img{height:104px}.track{animation-duration:55s}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-tpl">
+
+<div style="width:100%;min-height:100vh;background:#FBE3EA;overflow:hidden">
+
+<header style="position:relative;z-index:2">
+<div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:96px;gap:20px">
+<a href="#top" style="display:flex;align-items:center;gap:6px;color:#E8317A"><span class="word" style="font-size:42px;line-height:1">The Sharon Effect</span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8317A" stroke-width="1.6"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg></a>
+<nav class="navl" aria-label="Main" style="font-size:15px;font-weight:500">
+<a href="#shades">Services</a>
+<a href="#looks">Looks</a>
+<a href="#menu">Price menu</a>
+<a href="#sharon">Meet Sharon</a>
+<a href="#before">Before your glam</a>
+</nav>
+<a class="btn pill" href="book.html" style="background:#E8317A;color:#FFFFFF;font-weight:600;font-size:15px;padding:0 26px;min-height:48px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap">Book your glam<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg></a>
+</div>
+</header>
+
+<section id="top" style="position:relative;padding:24px 0 120px;background:linear-gradient(180deg,#FBE3EA 0%,#FFF1F5 100%)">
+<svg class="sp" aria-hidden="true" style="top:120px;left:6%;width:26px;height:26px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<svg class="sp pink" aria-hidden="true" style="top:420px;left:44%;width:18px;height:18px;animation-delay:1.1s" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<svg class="sp" aria-hidden="true" style="top:90px;right:9%;width:34px;height:34px;animation-delay:.5s" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<svg class="sp pink" aria-hidden="true" style="bottom:120px;right:5%;width:22px;height:22px;animation-delay:2s" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<svg class="sp" aria-hidden="true" style="bottom:200px;left:30%;width:20px;height:20px;animation-delay:1.6s" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<div class="wrap heroGrid">
+<div style="position:relative;z-index:1">
+<div class="pill" style="display:inline-flex;align-items:center;gap:10px;background:#FFFFFF;padding:10px 18px;font-size:14px;font-weight:500;color:#2B1A16"><span style="width:8px;height:8px;border-radius:50%;background:#E8317A"></span>Makeup artist · Ojo, Lagos</div>
+<h1 class="disp" style="margin:28px 0 0;font-size:clamp(68px,8.6vw,138px);line-height:.92;letter-spacing:-.01em;color:#2B1A16">Faces<br>but make<br>it <span style="color:#E8317A">art</span><svg aria-hidden="true" style="width:.5em;height:.5em;margin-left:.08em;vertical-align:.25em" viewBox="0 0 24 24" fill="#E8317A"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg></h1>
+<p style="margin:28px 0 0;max-width:460px;font-size:19px;line-height:1.6;font-weight:300;color:#5E4842">Soft glam, bridal and editorial looks for melanin-rich skin, by Sharon Ego Anthony. In the studio or at your door, anywhere in Lagos.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:36px">
+<a class="btn pill" href="book.html" style="background:#E8317A;color:#FFFFFF;font-weight:600;font-size:16px;padding:0 32px;min-height:58px;display:inline-flex;align-items:center">Book your glam</a>
+<a class="btn pill" href="https://wa.me/2349021059536" style="background:#FFFFFF;color:#2B1A16;font-weight:500;font-size:16px;padding:0 28px;min-height:58px;display:inline-flex;align-items:center;gap:10px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8317A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>WhatsApp Sharon</a>
+</div>
+<div style="display:flex;gap:36px;margin-top:44px">
+<div><div class="disp" style="font-size:44px;line-height:1;color:#E8317A">5+</div><div style="font-size:14px;color:#7A6560;margin-top:4px">years of artistry</div></div>
+<div><div class="disp" style="font-size:44px;line-height:1;color:#E8317A">70+</div><div style="font-size:14px;color:#7A6560;margin-top:4px">faces transformed</div></div>
+<div><div class="disp" style="font-size:44px;line-height:1;color:#E8317A">₦30k</div><div style="font-size:14px;color:#7A6560;margin-top:4px">glam from</div></div>
+</div>
+</div>
+
+<div style="position:relative;display:flex;justify-content:center;min-height:640px">
+<div class="compact" style="position:relative;width:min(500px,92%);margin-top:10px">
+<div class="chrome" style="border-radius:50%;padding:20px;box-shadow:0 40px 80px rgba(80,50,40,.25),inset 0 0 0 2px rgba(255,255,255,.8)">
+<div style="position:relative;border-radius:50%;overflow:hidden;aspect-ratio:1/1;background:#E8B9A9;box-shadow:inset 0 0 0 3px rgba(255,255,255,.7)">
+<video src="assets/pinkglaze-motion.mp4" poster="assets/look-pinkglaze.jpg" autoplay="" muted="" loop="" playsinline="" ref="{{vidRef}}" aria-label="Pink glaze glam in motion" style="width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block"></video>
+<div class="glass"></div>
+</div>
+</div>
+<div class="chrome" style="width:64px;height:22px;margin:-6px auto 0;border-radius:0 0 12px 12px;position:relative;z-index:1"></div>
+<div class="chrome" style="width:62%;margin:-4px auto 0;border-radius:50%;padding:12px;transform:perspective(600px) rotateX(58deg);box-shadow:0 30px 40px rgba(80,50,40,.2)">
+
+</div>
+</div>
+<div style="position:absolute;left:-10px;top:40px;transform:rotate(-8deg)">
+<span class="brush" style="font-size:40px;line-height:1">that's the effect</span>
+<svg class="scribble" aria-hidden="true" width="140" height="80" viewBox="0 0 140 80" fill="none" stroke="#E8317A" stroke-width="3" stroke-linecap="round" style="display:block;margin-left:60px"><path d="M4 6 C40 10 90 20 120 60 M120 60 L104 54 M120 60 L118 42"></path></svg>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="shades" style="position:relative;padding:112px 0;background:#FFFFFF">
+<div class="wrap">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:64px">
+<div>
+<div class="brush" style="font-size:34px">find your shade</div>
+<h2 class="disp" style="margin:4px 0 0;font-size:clamp(48px,5.6vw,84px);line-height:.95">The palette</h2>
+</div>
+<p style="margin:0;max-width:400px;font-size:17px;line-height:1.6;color:#5E4842">Every service is a shade in Sharon's palette. Hover to swatch, tap to book.</p>
+</div>
+<div class="chrome caseRim" style="border-radius:48px;padding:14px;box-shadow:0 30px 70px rgba(80,50,40,.18)">
+<div class="case" style="background:linear-gradient(160deg,#FFFFFF 0%,#FBF7F4 100%);border-radius:36px;padding:40px 36px">
+<div class="palette">
+<sc-for list="{{shades}}" as="s" hint-placeholder-count="6">
+<a class="panbtn" href="book.html" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;min-height:44px;padding:0 12px">
+<span style="font-size:12px;letter-spacing:.18em;color:#7A6560">{{s.num}}</span>
+<span class="pan chrome" style="display:block;width:100%;max-width:150px;aspect-ratio:1/1;border-radius:50%;padding:7px;box-shadow:0 14px 30px rgba(80,50,40,.18)"><span style="display:block;width:100%;height:100%;border-radius:50%;background:{{s.powder}};box-shadow:inset 0 6px 14px rgba(255,255,255,.55),inset 0 -8px 16px rgba(0,0,0,.08)"></span></span>
+<span class="smear" aria-hidden="true" style="display:block;width:100%;max-width:150px;height:14px;border-radius:999px;background:{{s.smear}}"></span>
+<span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560;white-space:nowrap">{{s.tone}}</span>
+<span class="disp panname" style="font-size:28px;line-height:1.1;color:#2B1A16;white-space:nowrap">{{s.name}}</span>
+<span style="align-self:stretch;border-top:1px solid #EBD6CE;margin-top:6px;padding-top:14px;display:flex;flex-direction:column;align-items:center;gap:2px"><span style="font-size:12px;color:#7A6560">from</span><span class="panprice" style="font-size:19px;font-weight:600;color:#E8317A;white-space:nowrap">{{s.price}}</span></span>
+</a>
+</sc-for>
+</div>
+<div class="palMobile" role="group" aria-label="Choose a service shade">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 8px;justify-items:center">
+<sc-for list="{{shades}}" as="s" hint-placeholder-count="6">
+<sc-if value="{{s.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{s.pick}}" aria-pressed="true" aria-label="{{s.name}}" style="background:none;border:0;padding:4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:44px"><span class="chrome" style="display:block;width:66px;height:66px;border-radius:50%;padding:4px;outline:2px solid #E8317A;outline-offset:3px;box-shadow:0 10px 20px rgba(80,50,40,.18)"><span style="display:block;width:100%;height:100%;border-radius:50%;background:{{s.powder}};box-shadow:inset 0 5px 10px rgba(255,255,255,.55)"></span></span><span style="font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.16em;font-weight:600;color:#E8317A">{{s.num}}</span></button></sc-if>
+<sc-if value="{{s.off}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{s.pick}}" aria-pressed="false" aria-label="{{s.name}}" style="background:none;border:0;padding:4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:44px"><span class="chrome" style="display:block;width:66px;height:66px;border-radius:50%;padding:4px;box-shadow:0 10px 20px rgba(80,50,40,.12)"><span style="display:block;width:100%;height:100%;border-radius:50%;background:{{s.powder}};box-shadow:inset 0 5px 10px rgba(255,255,255,.55)"></span></span><span style="font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.16em;color:#7A6560">{{s.num}}</span></button></sc-if>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+<div class="palMobile" aria-live="polite" style="margin-top:18px;background:#FBE3EA;border-radius:24px;padding:22px 22px 20px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560">{{sel.num}} · {{sel.tone}}</div>
+<div class="disp" style="font-size:32px;line-height:1.05;margin-top:6px;color:#2B1A16">{{sel.full}}</div>
+<p style="margin:8px 0 0;font-size:14px;line-height:1.55;color:#5E4842">{{sel.desc}}</p>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px"><span><span style="display:block;font-size:12px;color:#7A6560">from</span><span style="font-size:21px;font-weight:600;color:#E8317A">{{sel.price}}</span></span><a class="btn pill" href="book.html" style="background:#E8317A;color:#FFFFFF;font-weight:600;font-size:14px;padding:0 24px;min-height:46px;display:inline-flex;align-items:center">Book this</a></div>
+</div>
+</div>
+</section>
+
+<section id="looks" style="position:relative;padding:120px 0;background:#FBE3EA">
+<svg class="sp pink" aria-hidden="true" style="top:80px;right:12%;width:24px;height:24px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<div class="wrap">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px">
+<div>
+<div class="brush" style="font-size:34px">straight off the chair</div>
+<h2 class="disp" style="margin:4px 0 0;font-size:clamp(48px,5.6vw,84px);line-height:.95">The looks</h2>
+</div>
+<div role="group" aria-label="Filter looks" style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+<sc-if value="{{f.on}}" hint-placeholder-val="{{ false }}"><button type="button" class="pill" onClick="{{f.pick}}" aria-pressed="true" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;min-height:44px;padding:0 20px;border:0;background:#2B1A16;color:#FFFFFF;cursor:pointer">{{f.label}}</button></sc-if>
+<sc-if value="{{f.off}}" hint-placeholder-val="{{ true }}"><button type="button" class="pill" onClick="{{f.pick}}" aria-pressed="false" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;min-height:44px;padding:0 20px;border:0;background:#FFFFFF;color:#2B1A16;cursor:pointer">{{f.label}}</button></sc-if>
+</sc-for>
+</div>
+</div>
+<div class="looks">
+<sc-for list="{{shown}}" as="p" hint-placeholder-count="12">
+<figure class="look" style="margin:0;transform:rotate({{p.tilt}});position:relative">
+<div style="background:#FFFFFF;padding:10px 10px 0;border-radius:22px;border:1px solid #EFE6DE;box-shadow:0 18px 40px rgba(80,50,40,.08)">
+<div style="border-radius:14px;overflow:hidden;aspect-ratio:3/4;background:#E8B9A9">
+<sc-if value="{{p.hasVid}}" hint-placeholder-val="{{ false }}">
+<video src="{{p.vid}}" poster="{{p.src}}" autoplay="" muted="" loop="" playsinline="" ref="{{vidRef}}" aria-label="{{p.alt}}" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block"></video>
+</sc-if>
+<sc-if value="{{p.imgOnly}}" hint-placeholder-val="{{ true }}">
+<img src="{{p.src}}" alt="{{p.alt}}" style="width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block">
+</sc-if>
+<sc-if value="{{p.noImg}}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-size:14px;color:#7A6560;border:2px dashed #D9C4B3;border-radius:14px">{{p.alt}}</div>
+</sc-if>
+</div>
+<figcaption style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 6px 16px">
+<span class="brush" style="font-size:28px;line-height:1">{{p.title}}</span>
+<a href="book.html" class="pill" aria-label="Book this look" style="background:#F3DDD4;color:#E8317A;font-size:13px;font-weight:600;padding:0 14px;min-height:36px;display:inline-flex;align-items:center;white-space:nowrap">Book it</a>
+</figcaption>
+</div>
+<sc-if value="{{p.hasVid}}" hint-placeholder-val="{{ false }}"><span class="pill" style="position:absolute;top:22px;left:22px;background:#E8317A;color:#FFFFFF;font-size:12px;font-weight:600;padding:5px 11px">in motion</span></sc-if>
+</figure>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="menu" style="position:relative;padding:120px 0;background:#F6C9D6">
+<svg class="sp" aria-hidden="true" style="top:110px;left:8%;width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<div class="wrap" style="max-width:980px">
+<div style="text-align:center">
+<div class="brush" style="font-size:34px">glam anywhere, anytime</div>
+<h2 class="disp" style="margin:4px 0 0;font-size:clamp(48px,5.6vw,84px);line-height:.95">The price menu</h2>
+</div>
+<div role="tablist" aria-label="Price categories" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:40px 0 28px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="6">
+<sc-if value="{{t.on}}" hint-placeholder-val="{{ false }}"><button type="button" role="tab" aria-selected="true" class="pill" onClick="{{t.pick}}" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;min-height:46px;padding:0 22px;border:0;background:#2B1A16;color:#FFFFFF;cursor:pointer">{{t.label}}</button></sc-if>
+<sc-if value="{{t.off}}" hint-placeholder-val="{{ true }}"><button type="button" role="tab" aria-selected="false" class="pill" onClick="{{t.pick}}" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;min-height:46px;padding:0 22px;border:0;background:#FFFFFF;color:#2B1A16;cursor:pointer">{{t.label}}</button></sc-if>
+</sc-for>
+</div>
+<div role="tabpanel" style="background:#FFFFFF;border:0;border-radius:36px;padding:48px 52px;box-shadow:0 30px 70px rgba(194,31,99,.16);color:#2B1A16;position:relative">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:12px">
+<h3 class="disp" style="margin:0;font-size:44px;color:#E8317A">{{tabTitle}}</h3>
+<span class="brush" style="font-size:28px">{{tabNote}}</span>
+</div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+<div style="display:flex;align-items:baseline;gap:14px;padding:20px 0;border-bottom:1px dashed #E6D8CC">
+<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="#E8317A" style="flex:none"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+<span style="font-size:18px;flex:1">{{r.name}}</span>
+<span style="font-size:20px;font-weight:600;white-space:nowrap;padding:3px 14px;border-radius:8px 18px 10px 16px;background:linear-gradient(100deg,rgba(249,211,222,0) 0%,#FBE3EA 7%,#FBDCE5 50%,#FBE3EA 93%,rgba(249,211,222,0) 100%);transform:rotate(-1.5deg);display:inline-block">{{r.price}}</span>
+</div>
+</sc-for>
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:32px">
+<span style="font-size:14px;color:#7A6560">50% deposit secures your date · balance before makeup begins</span>
+<a class="btn pill" href="book.html" style="background:#E8317A;color:#FFFFFF;font-weight:600;font-size:15px;padding:0 26px;min-height:50px;display:inline-flex;align-items:center">Book this</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="sharon" style="position:relative;padding:120px 0;background:#FFF1F5">
+<div class="wrap two">
+<div style="display:flex;justify-content:center">
+<div class="chrome" style="position:relative;border-radius:28px;padding:44px;width:min(470px,100%);box-shadow:0 40px 80px rgba(80,50,40,.22)">
+<div aria-hidden="true" style="position:absolute;top:13px;left:44px;right:44px;display:flex;justify-content:space-between"><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span></div>
+<div aria-hidden="true" style="position:absolute;bottom:13px;left:44px;right:44px;display:flex;justify-content:space-between"><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span></div>
+<div aria-hidden="true" style="position:absolute;left:13px;top:44px;bottom:44px;display:flex;flex-direction:column;justify-content:space-between"><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span></div>
+<div aria-hidden="true" style="position:absolute;right:13px;top:44px;bottom:44px;display:flex;flex-direction:column;justify-content:space-between"><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span></div>
+<div style="border-radius:12px;overflow:hidden;background:#E7E5E4;position:relative">
+<img src="assets/sharon-portrait.jpg" alt="Sharon Ego Anthony in a black velvet gown" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;display:block">
+<div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 30%);pointer-events:none"></div>
+</div>
+</div>
+</div>
+<div>
+<div class="brush" style="font-size:34px">hi, I'm Sharon</div>
+<h2 class="disp" style="margin:4px 0 0;font-size:clamp(48px,5.6vw,84px);line-height:.95">Every face is a canvas</h2>
+<p style="margin:28px 0 0;font-size:20px;line-height:1.55;color:#2B1A16">I'm Sharon Ego Anthony, the makeup artist and creative mind behind The Sharon Effect.</p>
+<p style="margin:16px 0 0;font-size:16px;line-height:1.75;font-weight:300;color:#5E4842">What started as a passion for beauty and creativity has grown into a brand dedicated to enhancing natural beauty through artistry. I believe makeup is more than just looking beautiful; it's about expressing individuality, creating confidence and making every face a work of art.</p>
+<p style="margin:16px 0 0;font-size:16px;line-height:1.75;font-weight:300;color:#5E4842">I'm known for flawless skin finishes, perfectly defined brows and soft glam looks that balance elegance and creativity.</p>
+<div style="margin-top:32px;background:#FFFFFF;border-radius:24px;padding:28px 30px;position:relative">
+<svg aria-hidden="true" style="position:absolute;top:-14px;right:28px" width="30" height="30" viewBox="0 0 24 24" fill="#E8317A"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+<div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560">My approach</div>
+<div class="disp" style="font-size:36px;line-height:1.1;margin-top:8px;color:#E8317A">Skin first, artistry always.</div>
+<p style="margin:12px 0 0;font-size:15px;line-height:1.7;color:#5E4842">From skin prep to the final blend, every look complements your features and enhances melanin-rich skin, so it looks beautiful in person, photographs effortlessly and lasts all day.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="before" style="padding:112px 0;background:#F3DDD4">
+<div class="wrap">
+<div style="margin-bottom:48px">
+<div class="brush" style="font-size:34px">the little rules</div>
+<h2 class="disp" style="margin:4px 0 0;font-size:clamp(48px,5.6vw,84px);line-height:.95">Before your glam</h2>
+</div>
+<div class="tips">
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">01</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Secure your date</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">A 50% deposit confirms your booking. The balance is paid before your makeup begins.</p></div>
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">02</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Come on time</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">You have a 15-minute grace period. After that your session may be shortened or moved.</p></div>
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">03</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Need to move it?</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">Deposits are non-refundable, but with 24 hours notice yours moves to a new date once.</p></div>
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">04</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Home service</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">Priced by zone. Have a clean, well-lit space and a chair ready for us.</p></div>
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">05</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Sensitive skin?</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">Tell us about allergies when you book. A patch test is available.</p></div>
+<div style="background:#FFFFFF;border-radius:28px;padding:30px"><div class="disp" style="font-size:44px;color:#E8317A;line-height:1">06</div><h3 style="margin:14px 0 8px;font-size:19px;font-weight:600">Your photos</h3><p style="margin:0;font-size:15px;line-height:1.65;color:#5E4842">We only post your look with your permission, and you can change your mind any time.</p></div>
+</div>
+<a id="policies" href="#policies" style="display:inline-flex;align-items:center;gap:8px;margin-top:32px;font-weight:600;color:#E8317A;min-height:44px;text-decoration:underline">Read the full policies</a>
+</div>
+</section>
+
+<section style="position:relative;background:#FBE3EA;padding:112px 0 96px;overflow:hidden" aria-labelledby="ln-title">
+
+<div class="wrap" style="text-align:center">
+<div class="brush" style="font-size:34px">from the clients</div>
+<h2 id="ln-title" class="disp" style="margin:4px auto 0;font-size:clamp(46px,6vw,88px);line-height:.98;max-width:900px">Nobody wants to take it off</h2>
+<p style="margin:18px auto 0;max-width:520px;font-size:17px;line-height:1.6;color:#5E4842">Real messages from Sharon's clients, the day of and the day after their glam.</p>
+</div>
+
+<div class="rail" style="margin-top:44px" aria-label="Client love notes">
+<div class="track">
+<sc-for list="{{notes}}" as="n" hint-placeholder-count="8">
+<figure class="note" style="margin:0;transform:rotate({{n.tilt}})" aria-hidden="{{n.dup}}">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#E8317A"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+<blockquote style="margin:14px 0 22px;font-size:18px;line-height:1.55;color:#2B1A16">{{n.quote}}</blockquote>
+<figcaption style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+<span class="brush" style="font-size:28px;line-height:1">{{n.name}}</span>
+<span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560;text-align:right">{{n.meta}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</div>
+</div>
+
+<div class="wrap" style="margin-top:40px;display:flex;justify-content:center">
+<div style="width:min(620px,100%);background:#FFFFFF;border-radius:999px;padding:12px 26px 12px 12px;display:flex;align-items:center;gap:18px;box-shadow:0 18px 40px rgba(194,31,99,.14)">
+<button type="button" onClick="{{toggle}}" aria-label="{{playLabel}}" style="flex:none;width:58px;height:58px;border-radius:50%;border:0;background:#E8317A;color:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(232,49,122,.35)">
+<sc-if value="{{isPaused}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg></sc-if>
+<sc-if value="{{isPlaying}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF"><rect x="6" y="5" width="4" height="14" rx="1.2"></rect><rect x="14" y="5" width="4" height="14" rx="1.2"></rect></svg></sc-if>
+</button>
+<div style="flex:1;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px">
+<span style="font-size:14px;font-weight:600">A voice note from a client</span>
+<span style="font-size:13px;color:#7A6560;font-variant-numeric:tabular-nums">{{timeLabel}}</span>
+</div>
+<div class="{{barsCls}}" aria-hidden="true">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="40"><span class="bar" style="height:{{b.h}};background:{{b.c}}"></span></sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div class="wrap" style="margin-top:72px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+<span class="brush" style="font-size:30px">the receipts</span>
+<span style="font-size:13px;color:#7A6560">Straight from her WhatsApp and Instagram. Hover to see the original.</span>
+</div>
+<div class="rail" aria-label="Screenshots of client messages">
+<div class="track rev">
+<sc-for list="{{receipts}}" as="r" hint-placeholder-count="9">
+<figure class="receipt" style="margin:0;transform:rotate({{r.tilt}})" aria-hidden="{{r.dup}}">
+<img src="{{r.src}}" alt="{{r.alt}}" loading="lazy">
+<span class="tint" aria-hidden="true"></span>
+</figure>
+</sc-for>
+</div>
+</div>
+
+</section>
+
+<footer style="position:relative;background:#FFFFFF;padding:104px 0 32px;overflow:hidden">
+<svg class="sp" aria-hidden="true" style="top:60px;left:12%;width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<svg class="sp pink" aria-hidden="true" style="top:140px;right:14%;width:22px;height:22px;animation-delay:1s" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z"></path></svg>
+<div class="wrap" style="text-align:center">
+<div class="word" style="font-size:clamp(72px,11vw,170px);line-height:1;color:#E8317A">The Sharon Effect</div>
+<div style="font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#5E4842;margin-top:4px">Faces but make it art</div>
+<a class="btn pill" href="book.html" style="margin-top:40px;background:#E8317A;color:#FFFFFF;font-weight:600;font-size:16px;padding:0 34px;min-height:58px;display:inline-flex;align-items:center">Book your glam</a>
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;margin-top:56px;font-size:15px">
+<span>26 Mosiu Ramoni Street, Ojo, Lagos</span>
+<a href="https://wa.me/2349021059536">WhatsApp +234 902 105 9536</a>
+<a href="https://instagram.com/the.sharoneffect">@the.sharoneffect</a>
+</div>
+<nav aria-label="Policies" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin-top:24px;font-size:13px;color:#5E4842">
+<a href="#policies">Booking &amp; payment</a><a href="#policies">Cancellation</a><a href="#policies">Refunds</a><a href="#policies">Late arrival</a><a href="#policies">Home service</a><a href="#policies">Photography</a><a href="#policies">Training</a><a href="#policies">Privacy</a><a href="#policies">Terms</a>
+</nav>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:56px;padding-top:20px;border-top:1px solid rgba(43,26,22,.15)">
+<span style="font-size:13px;color:#5E4842">© 2026 The Sharon Effect</span>
+<a class="sig" href="https://lenyns.art">Lenyn's Art</a>
+</div>
+</div>
+</footer>
+
+<a class="fab {{fabOn}}" href="https://wa.me/2349021059536" aria-label="WhatsApp Sharon" tabindex="{{fabTab}}"><span class="ico"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg></span><span class="lbl">WhatsApp Sharon</span></a>
+
+</div>
+</template>
+<script>
+/* Tiny renderer for the exported Sharon Effect pages. */
+(function () {
+  function get(scope, path) {
+    path = path.trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return Number(path);
+    var parts = path.split('.'), v = scope;
+    for (var i = 0; i < parts.length; i++) { if (v == null) return undefined; v = v[parts[i]]; }
+    return v;
+  }
+  var WHOLE = /^\s*\{\{([^}]+)\}\}\s*$/;
+  function interp(str, scope) {
+    return str.replace(/\{\{([^}]+)\}\}/g, function (_, p) { var v = get(scope, p); return v == null ? '' : String(v); });
+  }
+  var BOOL = { checked: 1, disabled: 1, autoplay: 1, muted: 1, loop: 1, playsinline: 1, selected: 1 };
+  var pendingRefs = [];
+  var HANDLERS = ['onclick', 'oninput', 'onchange', 'ontimeupdate', 'onended', 'onloadedmetadata', 'onsubmit'];
+  function morph(oldN, newN, map) {
+    if (oldN.nodeType !== newN.nodeType || oldN.nodeName !== newN.nodeName ||
+        (oldN.nodeType === 1 && /^(VIDEO|AUDIO|IMG)$/.test(oldN.nodeName) && oldN.getAttribute('src') !== newN.getAttribute('src'))) {
+      oldN.parentNode.replaceChild(newN, oldN); return;
+    }
+    if (oldN.nodeType === 3) { if (oldN.nodeValue !== newN.nodeValue) oldN.nodeValue = newN.nodeValue; return; }
+    if (oldN.nodeType !== 1) return;
+    var i, a;
+    for (i = oldN.attributes.length - 1; i >= 0; i--) { a = oldN.attributes[i].name; if (!newN.hasAttribute(a)) oldN.removeAttribute(a); }
+    for (i = 0; i < newN.attributes.length; i++) { a = newN.attributes[i]; if (oldN.getAttribute(a.name) !== a.value) oldN.setAttribute(a.name, a.value); }
+    HANDLERS.forEach(function (h) { oldN[h] = newN[h] || null; });
+    if (oldN.nodeName === 'INPUT' || oldN.nodeName === 'TEXTAREA') {
+      if (oldN.value !== newN.value && document.activeElement !== oldN) oldN.value = newN.value;
+      if (oldN.checked !== newN.checked) oldN.checked = newN.checked;
+    }
+    if (oldN.nodeName === 'BUTTON' || oldN.nodeName === 'INPUT') oldN.disabled = newN.disabled;
+    map.set(newN, oldN);
+    morphChildren(oldN, newN, map);
+  }
+  function morphChildren(oldP, newP, map) {
+    var o = Array.prototype.slice.call(oldP.childNodes), n = Array.prototype.slice.call(newP.childNodes);
+    for (var i = 0; i < n.length; i++) { if (o[i]) morph(o[i], n[i], map); else oldP.appendChild(n[i]); }
+    for (var j = n.length; j < o.length; j++) oldP.removeChild(o[j]);
+  }
+
+  function render(node, scope, out) {
+    if (node.nodeType === 3) { out.appendChild(document.createTextNode(interp(node.nodeValue, scope))); return; }
+    if (node.nodeType !== 1) return;
+    var tag = node.tagName.toLowerCase();
+    if (tag === 'helmet') return;
+    if (tag === 'sc-for') {
+      var list = get(scope, (node.getAttribute('list') || '').replace(/[{}]/g, '')) || [];
+      var as = node.getAttribute('as') || 'item';
+      list.forEach(function (item, i) {
+        var s = Object.create(scope); s[as] = item; s.$index = i;
+        node.childNodes.forEach(function (c) { render(c, s, out); });
+      });
+      return;
+    }
+    if (tag === 'sc-if') {
+      if (get(scope, (node.getAttribute('value') || '').replace(/[{}]/g, ''))) node.childNodes.forEach(function (c) { render(c, scope, out); });
+      return;
+    }
+    var el = node.cloneNode(false);
+    var refFn = null;
+    Array.prototype.slice.call(node.attributes).forEach(function (a) {
+      var name = a.name, val = a.value, m = val.match(WHOLE);
+      var lname = name.toLowerCase();
+      if (lname.indexOf('on') === 0 && m) {
+        el.removeAttribute(name);
+        var fn = get(scope, m[1]);
+        var ev = lname.slice(2);
+        if (ev === 'change') {
+          var t = (node.getAttribute('type') || '').toLowerCase();
+          if (node.tagName === 'TEXTAREA' || (node.tagName === 'INPUT' && t !== 'checkbox' && t !== 'file' && t !== 'radio')) ev = 'input';
+        }
+        if (typeof fn === 'function') el['on' + ev] = fn;
+        return;
+      }
+      if (lname === 'ref') { el.removeAttribute(name); if (m) refFn = get(scope, m[1]); return; }
+      if (lname.indexOf('hint-') === 0) { el.removeAttribute(name); return; }
+      var v = m ? get(scope, m[1]) : interp(val, scope);
+      if (BOOL[lname] && m) { el[lname === 'playsinline' ? 'playsInline' : lname] = !!v; if (v) el.setAttribute(name, ''); else el.removeAttribute(name); return; }
+      if (lname === 'value' && (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA')) { el.value = v == null ? '' : v; el.removeAttribute('value'); return; }
+      if (v === false || v == null) el.removeAttribute(name); else el.setAttribute(name, v);
+    });
+    node.childNodes.forEach(function (c) { render(c, scope, el); });
+    out.appendChild(el);
+    if (refFn) pendingRefs.push([el, refFn]);
+  }
+
+  window.mountDC = function (Component) {
+    var tpl = document.getElementById('dc-tpl');
+    var host = document.getElementById('app');
+    var comp = new Component({});
+    var scheduled = false;
+    function draw() {
+      scheduled = false;
+      var active = document.activeElement, id = active && active.id, ss = null, se = null;
+      try { if (id) { ss = active.selectionStart; se = active.selectionEnd; } } catch (e) {}
+      var scope = comp.renderVals();
+      var frag = document.createElement('div');
+      pendingRefs = [];
+      tpl.content.childNodes.forEach(function (c) { render(c, scope, frag); });
+      var map = new Map();
+      morphChildren(host, frag, map);
+      pendingRefs.forEach(function (r) { r[1](map.get(r[0]) || r[0]); });
+      if (id) { var again = document.getElementById(id); if (again) { again.focus(); try { if (ss != null) again.setSelectionRange(ss, se); } catch (e) {} } }
+    }
+    comp.setState = function (patch) {
+      this.state = Object.assign({}, this.state, typeof patch === 'function' ? patch(this.state) : patch);
+      if (!scheduled) { scheduled = true; requestAnimationFrame(draw); }
+    };
+    comp.forceUpdate = function () { draw(); };
+    draw();
+    if (comp.componentDidMount) comp.componentDidMount();
+  };
+  window.DCLogic = function DCLogic(props) { this.props = props || {}; this.state = {}; };
+})();
+
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'All', tab: 0, shade: 0, fab: false, playing: false, t: 0, dur: 22 };
+    this.audio = null;
+    this.onScroll = (e) => {
+      const t = e && e.target && e.target.scrollTop ? e.target.scrollTop : 0;
+      const y = Math.max(window.scrollY || 0, (document.scrollingElement && document.scrollingElement.scrollTop) || 0, t);
+      const show = y > 560;
+      if (show !== this.state.fab) this.setState({ fab: show });
+    };
+  }
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    this.onScroll();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll, { capture: true });
+  }
+  renderVals() {
+    const shades = [
+      { num: '01', tone: 'Baby pink', name: 'Birthday', price: '₦30k', powder: 'radial-gradient(circle at 38% 32%,#FFE4EC 0%,#F7B8C9 55%,#EC9AB1 100%)', smear: 'linear-gradient(90deg,rgba(247,184,201,0),#F7B8C9 25%,#F7B8C9 80%,rgba(247,184,201,0))' },
+      { num: '02', tone: 'Pearl', name: 'Bridal', price: '₦45k', powder: 'radial-gradient(circle at 38% 32%,#FFFFFF 0%,#F7ECEF 50%,#E6CED6 100%)', smear: 'linear-gradient(90deg,rgba(240,224,230,0),#F0E0E6 25%,#FFFFFF 55%,#F0E0E6 80%,rgba(240,224,230,0))' },
+      { num: '03', tone: 'Peach', name: 'Shoots', price: '₦30k', powder: 'radial-gradient(circle at 38% 32%,#FFE2D4 0%,#F5B49A 55%,#E59A7E 100%)', smear: 'linear-gradient(90deg,rgba(245,180,154,0),#F5B49A 25%,#F5B49A 80%,rgba(245,180,154,0))' },
+      { num: '04', tone: 'Hot pink', name: 'Editorial', price: '₦50k', powder: 'radial-gradient(circle at 38% 32%,#FF8DB6 0%,#E8317A 55%,#E8317A 100%)', smear: 'linear-gradient(90deg,rgba(232,49,122,0),#E8317A 25%,#E8317A 80%,rgba(232,49,122,0))' },
+      { num: '05', tone: 'Cocoa', name: 'On set', price: '₦350k', powder: 'radial-gradient(circle at 38% 32%,#C88A70 0%,#8A4B3A 55%,#6A3529 100%)', smear: 'linear-gradient(90deg,rgba(138,75,58,0),#8A4B3A 25%,#8A4B3A 80%,rgba(138,75,58,0))' },
+      { num: '06', tone: 'Nude', name: 'Training', price: '₦120k', powder: 'radial-gradient(circle at 38% 32%,#F3D2C1 0%,#D9A58C 55%,#C38C72 100%)', smear: 'linear-gradient(90deg,rgba(217,165,140,0),#D9A58C 25%,#D9A58C 80%,rgba(217,165,140,0))' }
+    ];
+    const fulls = ['Birthday glam', 'Bridal', 'Photoshoots', 'Editorial', 'Music video, TV & campaigns', 'Makeup training'];
+    const descs = [
+      'Soft or full glam for your day, in the studio or at your door.',
+      'Consultation and trial from ₦45k, wedding-day glam ₦170k, bridal party ₦40k each.',
+      'Studio shoot glam, editorial looks and campaign or portfolio shoots.',
+      'Concept-led, creative looks built for the camera.',
+      'On-set artistry and touch-ups for brands, artists and productions.',
+      'Beginner courses in the studio, or a virtual one-on-one class.'
+    ];
+    const shadesV = shades.map((x, i) => ({ ...x, full: fulls[i], desc: descs[i], on: this.state.shade === i, off: this.state.shade !== i, pick: () => this.setState({ shade: i }) }));
+    const sel = shadesV[this.state.shade] || shadesV[0];
+    const tilts = ['-2deg', '1.5deg', '-1deg', '2deg'];
+    const looks = [
+      { title: 'silver thread', cat: 'Editorial', src: 'assets/ed-cord.jpg', alt: 'Metallic blue gele with a crystal cord across the face' },
+      { title: 'pink glaze', cat: 'Full glam', src: 'assets/look-pinkglaze.jpg', alt: 'Glossy full glam with pink inner corners' },
+      { title: 'cocoa glow', cat: 'Soft glam', src: 'assets/look-softglam.jpg', alt: 'Soft glam with warm blush and nude lip' },
+      { title: 'lace & crystal', cat: 'Editorial', src: 'assets/ed-laceveil.jpg', alt: 'Cream lace wrap with a crystal face veil' },
+      { title: 'golden hour', cat: 'Full glam', src: 'assets/look-cutcrease.jpg', alt: 'Yellow cut-crease look with sharp lashes' },
+      { title: 'the veil', cat: 'Editorial', src: 'assets/ed-jewelveil.jpg', alt: 'Crystal headpiece and sheer black veil' },
+      { title: 'graphic liner', cat: 'Full glam', src: 'assets/look-liner.jpg', alt: 'Full glam with graphic winged liner' },
+      { title: 'sunset lids', cat: 'Full glam', src: 'assets/reel2.jpg', vid: 'assets/reel2.mp4', alt: 'Yellow cut crease in motion' },
+      { title: 'strings', cat: 'Editorial', src: 'assets/ed-violin.jpg', alt: 'Gele and soft glow with a violin' },
+      { title: 'the crown', cat: 'Editorial', src: 'assets/look-crown.jpg', alt: 'Full-body silver glitter look with a crown' },
+      { title: 'everyday glam', cat: 'Soft glam', src: 'assets/reel3.jpg', vid: 'assets/reel3.mp4', alt: 'Everyday soft glam in motion' },
+      { title: 'rose glow', cat: 'Soft glam', src: 'assets/reel1.jpg', vid: 'assets/reel1.mp4', alt: 'Soft glam with rosy cheeks in motion' }
+    ];
+    const cats = ['All', 'Soft glam', 'Full glam', 'Editorial'];
+    const filters = cats.map((c) => ({ label: c, on: this.state.filter === c, off: this.state.filter !== c, pick: () => this.setState({ filter: c }) }));
+    const shown = looks
+      .filter((p) => this.state.filter === 'All' || p.cat === this.state.filter)
+      .map((p, i) => ({ ...p, tilt: tilts[i % 4], hasVid: !!p.vid, imgOnly: !!p.src && !p.vid, noImg: !p.src }));
+    const MENU = [
+      { label: 'Bridal', note: 'book early, babe', rows: [['Bridal consultation & trial', '₦45,000'], ['Bride · wedding day glam', '₦170,000'], ['Full-day bridal booking', '₦200,000'], ['Bridesmaids / bridal party', '₦40,000 per face']] },
+      { label: 'Birthday', note: 'your day, your face', rows: [['Birthday glam', '₦30,000'], ['Birthday photoshoot glam', '₦30,000'], ['Birthday home service (Ojo axis)', 'from ₦55,000']] },
+      { label: 'Photoshoot', note: 'camera ready', rows: [['Studio photoshoot glam', '₦30,000'], ['Editorial / creative makeup', 'from ₦50,000'], ['Campaign / portfolio shoot', 'from ₦100,000']] },
+      { label: 'Music video & TV', note: 'on set with you', rows: [['Brand campaigns', 'from ₦350,000'], ['Music video makeup', 'from ₦350,000'], ['TV / film production', 'from ₦350,000'], ['Editorial production', 'custom quote']] },
+      { label: 'Training', note: 'learn the effect', rows: [['2-week beginner training', '₦150,000'], ['1-month beginner training', '₦250,000'], ['2-month beginner training', '₦400,000'], ['Virtual 1-on-1 class', '₦120,000']] },
+      { label: 'Home service', note: 'we come to you', rows: [['Home service (Ojo axis)', '₦55,000'], ['Home service (Mainland)', '₦90,000'], ['Home service (Island)', '₦120,000']] }
+    ];
+    const t = MENU[this.state.tab] || MENU[0];
+    const tabs = MENU.map((m, i) => ({ label: m.label, on: this.state.tab === i, off: this.state.tab !== i, pick: () => this.setState({ tab: i }) }));
+    const rows = t.rows.map((r) => ({ name: r[0], price: r[1] }));
+    const st = this.state;
+    const NOTES = [
+      ['I really loved my makeup. It didn’t break and it really complimented my skin tone.', 'Benita', 'Glam · WhatsApp'],
+      ['We are done with the shoot. Thank you, my makeup ate 🤭❤️', 'Omah', 'Shoot · WhatsApp'],
+      ['I don’t feel like cleaning this makeup o Sharonnn 😭😭', 'Kelechi', 'Glam · WhatsApp'],
+      ['It was the next day I cleaned my makeup. Was tooo good.', 'Temiloluwa', 'Glam · WhatsApp'],
+      ['Thank you for today. I really love my makeup ❤️', 'Tina', 'Glam · WhatsApp'],
+      ['I do much love my MUA today, and the session was amazing as well.', 'Depeju Wears', 'Brand shoot · WhatsApp'],
+      ['An hour after the shoot: our makeup still looks good 🙈', 'Rare Gem', 'Brand shoot · WhatsApp'],
+      ['Love the makeup. I just got home and we didn’t want to clean it 😂', 'Adewumi', 'Group glam · WhatsApp'],
+      ['The makeup ateeeee', 'Eniola', 'Instagram']
+    ];
+    const ntilts = ['-1.5deg', '1deg', '-.5deg', '1.5deg'];
+    const one = NOTES.map((n, i) => ({ quote: n[0], name: n[1], meta: n[2], tilt: ntilts[i % 4] }));
+    const notes = one.map((n) => ({ ...n, dup: 'false' })).concat(one.map((n) => ({ ...n, dup: 'true' })));
+
+    const REC = [
+      ['assets/b-benita.jpg', 'Benita: I really loved my makeup, it didn’t break and it complimented my skin tone'],
+      ['assets/b-kelechi.jpg', 'Kelechi: I don’t feel like cleaning this makeup o Sharonnn'],
+      ['assets/b-omah.jpg', 'Omah: we are done with the shoot, my makeup ate'],
+      ['assets/b-tina.jpg', 'Tina: thank you for today, I really love my makeup'],
+      ['assets/b-temi.jpg', 'Temiloluwa: it was the next day I cleaned my makeup, was too good'],
+      ['assets/b-raregem.jpg', 'Rare Gem: our makeup still looks good'],
+      ['assets/b-adewumi.jpg', 'Adewumi: I just got home, we didn’t want to clean it'],
+      ['assets/b-depeju.jpg', 'Depeju Wears: I do much love my MUA today, the session was amazing'],
+      ['assets/b-eniola.jpg', 'Eniola on Instagram: the makeup ateeeee']
+    ];
+    const rtilt = ['1.5deg', '-1deg', '2deg', '-1.5deg'];
+    const r1 = REC.map((r, i) => ({ src: r[0], alt: r[1], tilt: rtilt[i % 4] }));
+    const receipts = r1.map((r) => ({ ...r, dup: 'false' })).concat(r1.map((r) => ({ ...r, dup: 'true', alt: '' })));
+
+    const HEIGHTS = [30, 52, 40, 70, 46, 88, 60, 36, 74, 92, 58, 42, 66, 84, 50, 34, 62, 96, 70, 44, 56, 80, 38, 64, 90, 54, 40, 72, 86, 48, 32, 60, 78, 46, 68, 52, 36, 58, 42, 28];
+    const prog = st.dur ? st.t / st.dur : 0;
+    const bars = HEIGHTS.map((h, i) => ({ h: h + '%', c: (i / HEIGHTS.length) < prog ? '#E8317A' : '#F2C3D1' }));
+
+    const fmtT = (x) => { x = Math.max(0, Math.round(x)); return Math.floor(x / 60) + ':' + String(x % 60).padStart(2, '0'); };
+    const getAudio = () => {
+      if (!this.audio && typeof Audio !== 'undefined') {
+        const a = new Audio('assets/voice-note.mp4');
+        a.preload = 'metadata';
+        a.addEventListener('loadedmetadata', () => { if (isFinite(a.duration)) this.setState({ dur: a.duration }); });
+        a.addEventListener('timeupdate', () => { if (Math.abs(a.currentTime - this.state.t) > 0.45) this.setState({ t: a.currentTime }); });
+        a.addEventListener('ended', () => this.setState({ playing: false, t: 0 }));
+        this.audio = a;
+      }
+      return this.audio;
+    };
+    const vidRef = (el) => { if (el) { el.muted = true; const p = el.play && el.play(); if (p && p.catch) p.catch(() => {}); } };
+    return { notes, receipts, bars,
+      isPlaying: st.playing, isPaused: !st.playing, playLabel: st.playing ? 'Pause voice note' : 'Play voice note',
+      barsCls: st.playing ? 'bars playing' : 'bars',
+      timeLabel: st.playing || st.t > 0 ? fmtT(st.t) + ' / ' + fmtT(st.dur) : fmtT(st.dur),
+      toggle: () => {
+        const a = getAudio(); if (!a) return;
+        if (a.paused) { const pr = a.play(); if (pr && pr.catch) pr.catch(() => this.setState({ playing: false })); this.setState({ playing: true }); }
+        else { a.pause(); this.setState({ playing: false }); }
+      },
+      fabOn: this.state.fab ? 'on' : '', fabTab: this.state.fab ? '0' : '-1', shades: shadesV, sel, filters, shown, tabs, rows, tabTitle: t.label, tabNote: t.note, vidRef };
+  }
+}
+mountDC(Component);
+</script>
+</body>
+</html>

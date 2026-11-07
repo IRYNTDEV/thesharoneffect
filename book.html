@@ -1,0 +1,612 @@
+<!doctype html>
+<!-- Designed & developed by Lenyn's Art / The Sharon Effect — 2026 / Built with intention. Every line deliberate. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book your glam — The Sharon Effect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Allura&amp;family=Italiana&amp;family=Nanum+Brush+Script&amp;family=Outfit:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.ring{position:absolute;inset:0;border-radius:50%;border:2px solid #E8317A;animation:ring 2.4s ease-out infinite}
+.ring.r2{animation-delay:.8s}.ring.r3{animation-delay:1.6s}
+.beat{animation:beat 1.6s ease-in-out infinite}
+body{margin:0;background:#FBE3EA;color:#2B1A16;font-family:'Outfit',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2B1A16;text-decoration:none}a:hover{color:#E8317A}
+*{box-sizing:border-box}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+.layout{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.main{flex:999 1 560px;min-width:0}
+.side{flex:1 1 340px;min-width:0}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.times{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.full{grid-column:1 / -1}
+input[type=text],input[type=tel],input[type=email],input[type=date],textarea{width:100%;font-family:'Outfit',sans-serif;font-size:16px;color:#2B1A16;background:#FFFFFF;border:1px solid #EBC9BD;border-radius:6px;padding:14px 16px;min-height:48px}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid #E8317A;outline-offset:2px}
+label.lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560;margin-bottom:8px}
+button{font-family:'Outfit',sans-serif}
+@media (max-width:640px){.wrap{padding:0 18px}.opts,.fields{grid-template-columns:minmax(0,1fr)}.times{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-tpl">
+
+<div style="width:100%;min-height:100vh;background:#FBE3EA;padding-bottom:96px">
+
+<header style="background:#FFFFFF;border-bottom:1px solid #F3DDD4">
+<div class="wrap" style="display:flex;align-items:center;justify-content:space-between;height:84px;gap:16px">
+<a href="index.html" style="font-family:'Allura',cursive;font-size:34px;color:#E8317A;line-height:1;white-space:nowrap">The Sharon Effect</a>
+<a href="https://wa.me/2349021059536" style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;min-height:44px">
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Need help? WhatsApp us</a>
+</div>
+</header>
+
+<div class="wrap" style="padding-top:56px">
+<p style="margin:0 0 14px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#8A5A44;font-weight:500">Book an appointment</p>
+<h1 style="margin:0;font-family:'Italiana',serif;font-weight:400;font-size:clamp(40px,5vw,68px);line-height:1;letter-spacing:-.01em">Let's book your <span style="color:#E8317A">glam</span></h1>
+
+<sc-if value="{{isForm}}" hint-placeholder-val="{{ true }}">
+<ol aria-label="Booking steps" style="list-style:none;margin:40px 0 32px;padding:0;display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<li style="flex:1 1 140px">
+<div style="height:10px;border-radius:999px;background:{{s.bar}};box-shadow:inset 0 2px 3px rgba(255,255,255,.6)"></div>
+<div style="margin-top:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:{{s.color}}">{{s.n}} · {{s.label}}</div>
+</li>
+</sc-for>
+</ol>
+
+<div class="layout">
+<div class="main" style="background:#FFFFFF;border-radius:28px;padding:40px">
+
+<sc-if value="{{is1}}" hint-placeholder-val="{{ true }}">
+<h2 style="margin:0 0 6px;font-family:'Italiana',serif;font-weight:400;font-size:32px">Choose your service</h2>
+<p style="margin:0 0 20px;font-size:15px;color:#7A6560">Choose a category, then your service.</p>
+<div role="group" aria-label="Service category" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="4">
+<sc-if value="{{c.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{c.pick}}" aria-pressed="true" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;min-height:44px;border-radius:999px;cursor:pointer;border:1px solid #2B1A16;background:#2B1A16;color:#FFFFFF">{{c.label}}</button></sc-if>
+<sc-if value="{{c.off}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{c.pick}}" aria-pressed="false" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;min-height:44px;border-radius:999px;cursor:pointer;border:1px solid #EBC9BD;background:#FFFFFF;color:#2B1A16">{{c.label}}</button></sc-if>
+</sc-for>
+</div>
+<div class="opts">
+<sc-for list="{{services}}" as="o" hint-placeholder-count="5">
+<sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{o.pick}}" aria-pressed="true" style="text-align:left;background:#FCE6EC;border:1.5px solid #E8317A;border-radius:28px;padding:20px;cursor:pointer;min-height:96px;display:flex;flex-direction:column;gap:6px"><span style="font-size:17px;font-weight:500;color:#2B1A16">{{o.name}}</span><span style="font-size:14px;color:#7A6560;line-height:1.5">{{o.desc}}</span><span style="font-family:'Italiana',serif;font-size:20px;color:#2B1A16;margin-top:4px">{{o.price}}</span></button></sc-if>
+<sc-if value="{{o.off}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{o.pick}}" aria-pressed="false" style="text-align:left;background:#FFFFFF;border:1px solid #F3DDD4;border-radius:28px;padding:20px;cursor:pointer;min-height:96px;display:flex;flex-direction:column;gap:6px"><span style="font-size:17px;font-weight:500;color:#2B1A16">{{o.name}}</span><span style="font-size:14px;color:#7A6560;line-height:1.5">{{o.desc}}</span><span style="font-family:'Italiana',serif;font-size:20px;color:#2B1A16;margin-top:4px">{{o.price}}</span></button></sc-if>
+</sc-for>
+</div>
+<sc-if value="{{showFaces}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid #F3DDD4;border-radius:28px">
+<div><div style="font-size:16px;font-weight:500">How many faces?</div><div style="font-size:14px;color:#7A6560">Priced per face. Group bookings welcome.</div></div>
+<div style="display:flex;align-items:center;gap:14px">
+<button type="button" onClick="{{dec}}" aria-label="One fewer face" style="width:44px;height:44px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;font-size:20px;cursor:pointer;color:#2B1A16">−</button>
+<span aria-live="polite" style="font-family:'Italiana',serif;font-size:26px;min-width:28px;text-align:center">{{faces}}</span>
+<button type="button" onClick="{{inc}}" aria-label="One more face" style="width:44px;height:44px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;font-size:20px;cursor:pointer;color:#2B1A16">+</button>
+</div>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{is2}}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-family:'Italiana',serif;font-weight:400;font-size:32px">Where are you getting ready?</h2>
+<p style="margin:0 0 28px;font-size:15px;color:#7A6560">{{locNote}}</p>
+<div class="opts">
+<sc-for list="{{locations}}" as="o" hint-placeholder-count="4">
+<sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{o.pick}}" aria-pressed="true" style="text-align:left;background:#FCE6EC;border:1.5px solid #E8317A;border-radius:28px;padding:20px;cursor:pointer;min-height:96px;display:flex;flex-direction:column;gap:6px"><span style="font-size:17px;font-weight:500;color:#2B1A16">{{o.name}}</span><span style="font-size:14px;color:#7A6560">{{o.desc}}</span><span style="font-family:'Italiana',serif;font-size:20px;color:#2B1A16;margin-top:4px">{{o.price}}</span></button></sc-if>
+<sc-if value="{{o.off}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{o.pick}}" aria-pressed="false" style="text-align:left;background:#FFFFFF;border:1px solid #F3DDD4;border-radius:28px;padding:20px;cursor:pointer;min-height:96px;display:flex;flex-direction:column;gap:6px"><span style="font-size:17px;font-weight:500;color:#2B1A16">{{o.name}}</span><span style="font-size:14px;color:#7A6560">{{o.desc}}</span><span style="font-family:'Italiana',serif;font-size:20px;color:#2B1A16;margin-top:4px">{{o.price}}</span></button></sc-if>
+</sc-for>
+</div>
+<sc-if value="{{isHome}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:24px">
+<label class="lbl" for="addr">Full address</label>
+<input id="addr" type="text" value="{{address}}" onChange="{{setAddress}}" placeholder="House number, street, area, nearest landmark">
+<p style="margin:10px 0 0;font-size:13px;color:#7A6560">Please have a clean, well-lit space with a chair ready. See our home service policy.</p>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{is3}}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-family:'Italiana',serif;font-weight:400;font-size:32px">Pick a date &amp; time</h2>
+<p style="margin:0 0 28px;font-size:15px;color:#7A6560">Crossed-out days and times are already booked. For early bridal call times, WhatsApp us.</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+<span style="font-family:'Italiana',serif;font-size:24px">{{monthLabel}}</span>
+<div style="display:flex;gap:8px">
+<button type="button" aria-label="Previous month" onClick="{{prevMonth}}" disabled="{{atFirstMonth}}" style="width:44px;height:44px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;cursor:pointer;color:#2B1A16;opacity:{{prevOpacity}}">‹</button>
+<button type="button" aria-label="Next month" onClick="{{nextMonth}}" style="width:44px;height:44px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;cursor:pointer;color:#2B1A16">›</button>
+</div>
+</div>
+<div class="cal" style="margin-bottom:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7A6560;text-align:center">
+<span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+</div>
+<div class="cal">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="30">
+<sc-if value="{{d.blank}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true"></span></sc-if>
+<sc-if value="{{d.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{d.pick}}" aria-pressed="true" style="height:48px;border-radius:6px;border:0;background:#E8317A;color:#FFFFFF;font-size:16px;cursor:pointer">{{d.n}}</button></sc-if>
+<sc-if value="{{d.open}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{d.pick}}" aria-pressed="false" style="height:48px;border-radius:6px;border:1px solid #F3DDD4;background:#FFFFFF;color:#2B1A16;font-size:16px;cursor:pointer">{{d.n}}</button></sc-if>
+<sc-if value="{{d.closed}}" hint-placeholder-val="{{ false }}"><button type="button" disabled="" aria-label="{{d.aria}}" style="height:48px;border-radius:6px;border:0;background:#F6EEF0;color:#A8979A;font-size:16px;text-decoration:line-through">{{d.n}}</button></sc-if>
+</sc-for>
+</div>
+<sc-if value="{{hasDay}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:28px">
+<div class="lbl" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7A6560;margin-bottom:12px">Open slots on {{dayLabel}}</div>
+<div class="times">
+<sc-for list="{{times}}" as="t" hint-placeholder-count="6">
+<sc-if value="{{t.taken}}" hint-placeholder-val="{{ false }}"><button type="button" disabled="" aria-label="{{t.t}}, booked" style="min-height:48px;border-radius:999px;border:0;background:#F6EEF0;color:#A8979A;font-size:15px;text-decoration:line-through">{{t.t}}</button></sc-if>
+<sc-if value="{{t.on}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{t.pick}}" aria-pressed="true" style="min-height:48px;border-radius:999px;border:0;background:#2B1A16;color:#FFFFFF;font-size:15px;cursor:pointer">{{t.t}}</button></sc-if>
+<sc-if value="{{t.off}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{t.pick}}" aria-pressed="false" style="min-height:48px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;color:#2B1A16;font-size:15px;cursor:pointer">{{t.t}}</button></sc-if>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{loadingSlots}}" hint-placeholder-val="{{ false }}"><p style="margin:12px 0 0;font-size:13px;color:#7A6560">Checking availability…</p></sc-if>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{is4}}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-family:'Italiana',serif;font-weight:400;font-size:32px">Your details</h2>
+<p style="margin:0 0 28px;font-size:15px;color:#7A6560">We'll send your confirmation here.</p>
+<div class="fields">
+<div><label class="lbl" for="nm">Full name</label><input id="nm" type="text" value="{{name}}" onChange="{{setName}}" autocomplete="name"></div>
+<div><label class="lbl" for="ph">WhatsApp number</label><input id="ph" type="tel" value="{{phone}}" onChange="{{setPhone}}" placeholder="+234" autocomplete="tel"></div>
+<div><label class="lbl" for="em">Email</label><input id="em" type="email" value="{{email}}" onChange="{{setEmail}}" autocomplete="email"></div>
+<div><label class="lbl" for="ev">Event</label><input id="ev" type="text" value="{{event}}" onChange="{{setEvent}}" placeholder="Wedding, birthday, shoot…"></div>
+<div class="full" style="display:flex;gap:14px;align-items:center;border:1.5px dashed #E7B6C4;border-radius:28px;padding:20px 24px;background:#FBF1EE;font-size:15px;line-height:1.5;color:#5E4842">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8317A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+<span>Have a reference look you love? Send it to Sharon with your WhatsApp message after you book.</span>
+</div>
+<div class="full"><label class="lbl" for="al">Allergies or skin sensitivities</label><textarea id="al" rows="3" value="{{allergies}}" onChange="{{setAllergies}}" placeholder="Anything we should know before we start?"></textarea></div>
+<div class="full" style="display:flex;flex-direction:column;gap:14px">
+<label style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;cursor:pointer"><input type="checkbox" checked="{{photoOk}}" onChange="{{togglePhoto}}" style="width:20px;height:20px;margin-top:2px;accent-color:#E8317A"><span>You can feature my look on Instagram and the website. (Optional, and you can change your mind later.)</span></label>
+<label style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;cursor:pointer"><input type="checkbox" checked="{{agree}}" onChange="{{toggleAgree}}" style="width:20px;height:20px;margin-top:2px;accent-color:#E8317A"><span>I agree to the <a href="index.html#policies" style="color:#E8317A;text-decoration:underline">booking, cancellation and refund policies</a>, including the non-refundable deposit.</span></label>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{is5}}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-family:'Italiana',serif;font-weight:400;font-size:32px">Secure your slot</h2>
+<sc-if value="{{creating}}" hint-placeholder-val="{{ false }}"><p style="margin:12px 0 0;font-size:15px;color:#7A6560">Holding your slot…</p></sc-if>
+<sc-if value="{{hasBooking}}" hint-placeholder-val="{{ true }}">
+<p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#7A6560">Your slot is held for 6 hours. Transfer the 50% deposit below, then tap "I've sent the money". The balance of {{balance}} is due before your makeup begins.</p>
+<div style="border:1px solid #F3DDD4;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-size:15px;color:#7A6560">Transfer exactly</span><span style="font-family:'Italiana',serif;font-size:40px;color:#2B1A16">{{deposit}}</span></div>
+<div style="background:#FBE3EA;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#7A6560">Bank</span><span style="font-weight:600">{{bankName}}</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#7A6560">Account number</span><span style="display:flex;align-items:center;gap:10px"><span style="font-size:22px;font-weight:600;letter-spacing:.06em">{{bankNumber}}</span><button type="button" onClick="{{copyNumber}}" style="min-height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8317A;background:#FFFFFF;color:#C2185B;font-size:13px;font-weight:600;cursor:pointer">{{copyNumberLabel}}</button></span></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#7A6560">Account name</span><span style="font-weight:600;text-align:right">{{bankAccountName}}</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px;border-top:1px dashed #EBC9BD"><span style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#7A6560">Transfer note</span><span style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;font-weight:600">{{bookingRef}}</span><button type="button" onClick="{{copyRef}}" style="min-height:36px;padding:0 14px;border-radius:999px;border:1px solid #E8317A;background:#FFFFFF;color:#C2185B;font-size:13px;font-weight:600;cursor:pointer">{{copyRefLabel}}</button></span></div>
+</div>
+<a href="{{waLink}}" target="_blank" rel="noopener" onClick="{{onSent}}" style="min-height:58px;border-radius:999px;background:#E8317A;color:#FFFFFF;font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>I've sent the money</a>
+<p style="margin:0;font-size:13px;line-height:1.6;color:#7A6560;text-align:center">This opens WhatsApp with your booking details for Sharon. Attach your transfer receipt and send. We will never ask you to pay into any other account.</p>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin:24px 0 0;padding:14px 18px;border-radius:18px;background:#FCE6EC;color:#9E1249;font-size:14px;line-height:1.5">{{err}}</p></sc-if>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:24px;border-top:1px solid #F3DDD4;gap:12px">
+<sc-if value="{{canBack}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{back}}" style="min-height:48px;padding:0 24px;border-radius:999px;border:1px solid #EBC9BD;background:#FFFFFF;font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;color:#2B1A16">Back</button></sc-if>
+<sc-if value="{{noBack}}" hint-placeholder-val="{{ true }}"><span></span></sc-if>
+<sc-if value="{{showNext}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{next}}" disabled="{{nextDisabled}}" style="min-height:48px;padding:0 32px;border-radius:999px;border:0;background:#2B1A16;color:#FFFFFF;font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:{{nextOpacity}}">Continue</button></sc-if>
+</div>
+</div>
+
+<aside class="side" aria-label="Booking summary" style="background:#2B1A16;color:#F6E7E1;border-radius:28px;padding:32px">
+<div style="font-family:'Allura',cursive;font-size:32px;color:#F2AFC4;line-height:1">Your booking</div>
+<dl style="margin:24px 0 0;display:flex;flex-direction:column;gap:14px;font-size:15px">
+<div style="display:flex;justify-content:space-between;gap:12px"><dt style="color:#D9C4BC">Service</dt><dd style="margin:0;text-align:right">{{sumService}}</dd></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><dt style="color:#D9C4BC">Where</dt><dd style="margin:0;text-align:right">{{sumLocation}}</dd></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><dt style="color:#D9C4BC">When</dt><dd style="margin:0;text-align:right">{{sumWhen}}</dd></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><dt style="color:#D9C4BC">Price</dt><dd style="margin:0;text-align:right">{{qtyLine}}</dd></div>
+</dl>
+<sc-if value="{{hasTravelNote}}" hint-placeholder-val="{{ false }}"><p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:#F2AFC4">Travel to your location is confirmed with you on WhatsApp before your booking is final.</p></sc-if>
+<div style="margin-top:24px;padding-top:20px;border-top:1px solid #5E4842;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;font-size:15px"><span style="color:#D9C4BC">Total</span><span>{{total}}</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:15px;color:#D9C4BC">Deposit (50%)</span><span style="font-family:'Italiana',serif;font-size:32px;color:#FFFFFF">{{deposit}}</span></div>
+</div>
+<p style="margin:24px 0 0;font-size:13px;line-height:1.6;color:#D9C4BC">15-minute grace period on arrival. Tell us about allergies before your session.</p>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{isWaiting}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:40px;background:#FFFFFF;border-radius:28px;padding:56px 32px;text-align:center;max-width:720px">
+<div style="position:relative;width:96px;height:96px;margin:0 auto">
+<span class="ring"></span><span class="ring r2"></span><span class="ring r3"></span>
+<span class="beat" style="position:absolute;inset:18px;border-radius:50%;background:#FCE6EC;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="#E8317A"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4 6.2 4c2.3 0 3.8 1.4 5.8 3.6C14 5.4 15.5 4 17.8 4c4 0 5.9 4.4 4.2 7.7C19.5 16.4 12 21 12 21z"></path></svg></span>
+</div>
+<h2 style="margin:28px 0 0;font-family:'Italiana',serif;font-weight:400;font-size:36px">Waiting for Sharon to confirm</h2>
+<p style="margin:12px auto 0;max-width:460px;font-size:16px;line-height:1.7;color:#5E4842">Sharon is checking your transfer of {{deposit}}. This page updates by itself the moment she confirms. You can close it and come back any time.</p>
+<div style="margin:28px auto 0;max-width:420px;background:#FBE3EA;border-radius:22px;padding:20px 22px;text-align:left;display:flex;flex-direction:column;gap:8px;font-size:15px">
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#7A6560">Ref</span><span style="font-weight:600">{{bookingRef}}</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#7A6560">Service</span><span style="text-align:right">{{bkService}}</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#7A6560">When</span><span style="text-align:right">{{bkWhen}}</span></div>
+</div>
+<a href="{{waLink}}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;margin-top:24px;color:#C2185B;font-weight:600;text-decoration:underline">Didn't send the WhatsApp message? Send it again</a>
+</div>
+</sc-if>
+
+<sc-if value="{{isConfirmed}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:40px;background:#FFFFFF;border-radius:28px;padding:56px 32px;text-align:center;max-width:720px">
+<div style="width:72px;height:72px;border-radius:999px;background:#FCE6EC;display:flex;align-items:center;justify-content:center;margin:0 auto">
+<svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E8317A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+</div>
+<div style="font-family:'Allura',cursive;font-size:44px;color:#E8317A;margin-top:20px">You're booked</div>
+<h2 style="margin:6px 0 0;font-family:'Italiana',serif;font-weight:400;font-size:34px">{{bkService}}, {{bkWhen}}</h2>
+<p style="margin:16px auto 0;max-width:480px;font-size:16px;line-height:1.7;color:#5E4842">Sharon has confirmed your deposit of {{deposit}}. Booking ref {{bookingRef}}. She'll message you on WhatsApp with your prep tips before the day.</p>
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:32px">
+<a href="https://wa.me/2349021059536" target="_blank" rel="noopener" style="background:#E8317A;color:#FFFFFF;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:16px 26px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center">Message Sharon</a>
+<button type="button" onClick="{{restart}}" style="border:0;background:none;color:#7A6560;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:0 16px;min-height:48px;cursor:pointer;text-decoration:underline">Book another</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isProblem}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:40px;background:#FFFFFF;border-radius:28px;padding:56px 32px;text-align:center;max-width:720px">
+<h2 style="margin:0;font-family:'Italiana',serif;font-weight:400;font-size:34px">{{problemTitle}}</h2>
+<p style="margin:14px auto 0;max-width:460px;font-size:16px;line-height:1.7;color:#5E4842">{{problemText}}</p>
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px">
+<a href="https://wa.me/2349021059536" target="_blank" rel="noopener" style="background:#E8317A;color:#FFFFFF;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:16px 26px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center">Chat with Sharon</a>
+<button type="button" onClick="{{restart}}" style="border:1px solid #2B1A16;background:#FFFFFF;color:#2B1A16;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:0 26px;border-radius:999px;min-height:48px;cursor:pointer">Book again</button>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</template>
+<script>
+/* Tiny renderer for the exported Sharon Effect pages. */
+(function () {
+  function get(scope, path) {
+    path = path.trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return Number(path);
+    var parts = path.split('.'), v = scope;
+    for (var i = 0; i < parts.length; i++) { if (v == null) return undefined; v = v[parts[i]]; }
+    return v;
+  }
+  var WHOLE = /^\s*\{\{([^}]+)\}\}\s*$/;
+  function interp(str, scope) {
+    return str.replace(/\{\{([^}]+)\}\}/g, function (_, p) { var v = get(scope, p); return v == null ? '' : String(v); });
+  }
+  var BOOL = { checked: 1, disabled: 1, autoplay: 1, muted: 1, loop: 1, playsinline: 1, selected: 1 };
+  var pendingRefs = [];
+  var HANDLERS = ['onclick', 'oninput', 'onchange', 'ontimeupdate', 'onended', 'onloadedmetadata', 'onsubmit'];
+  function morph(oldN, newN, map) {
+    if (oldN.nodeType !== newN.nodeType || oldN.nodeName !== newN.nodeName ||
+        (oldN.nodeType === 1 && /^(VIDEO|AUDIO|IMG)$/.test(oldN.nodeName) && oldN.getAttribute('src') !== newN.getAttribute('src'))) {
+      oldN.parentNode.replaceChild(newN, oldN); return;
+    }
+    if (oldN.nodeType === 3) { if (oldN.nodeValue !== newN.nodeValue) oldN.nodeValue = newN.nodeValue; return; }
+    if (oldN.nodeType !== 1) return;
+    var i, a;
+    for (i = oldN.attributes.length - 1; i >= 0; i--) { a = oldN.attributes[i].name; if (!newN.hasAttribute(a)) oldN.removeAttribute(a); }
+    for (i = 0; i < newN.attributes.length; i++) { a = newN.attributes[i]; if (oldN.getAttribute(a.name) !== a.value) oldN.setAttribute(a.name, a.value); }
+    HANDLERS.forEach(function (h) { oldN[h] = newN[h] || null; });
+    if (oldN.nodeName === 'INPUT' || oldN.nodeName === 'TEXTAREA') {
+      if (oldN.value !== newN.value && document.activeElement !== oldN) oldN.value = newN.value;
+      if (oldN.checked !== newN.checked) oldN.checked = newN.checked;
+    }
+    if (oldN.nodeName === 'BUTTON' || oldN.nodeName === 'INPUT') oldN.disabled = newN.disabled;
+    map.set(newN, oldN);
+    morphChildren(oldN, newN, map);
+  }
+  function morphChildren(oldP, newP, map) {
+    var o = Array.prototype.slice.call(oldP.childNodes), n = Array.prototype.slice.call(newP.childNodes);
+    for (var i = 0; i < n.length; i++) { if (o[i]) morph(o[i], n[i], map); else oldP.appendChild(n[i]); }
+    for (var j = n.length; j < o.length; j++) oldP.removeChild(o[j]);
+  }
+
+  function render(node, scope, out) {
+    if (node.nodeType === 3) { out.appendChild(document.createTextNode(interp(node.nodeValue, scope))); return; }
+    if (node.nodeType !== 1) return;
+    var tag = node.tagName.toLowerCase();
+    if (tag === 'helmet') return;
+    if (tag === 'sc-for') {
+      var list = get(scope, (node.getAttribute('list') || '').replace(/[{}]/g, '')) || [];
+      var as = node.getAttribute('as') || 'item';
+      list.forEach(function (item, i) {
+        var s = Object.create(scope); s[as] = item; s.$index = i;
+        node.childNodes.forEach(function (c) { render(c, s, out); });
+      });
+      return;
+    }
+    if (tag === 'sc-if') {
+      if (get(scope, (node.getAttribute('value') || '').replace(/[{}]/g, ''))) node.childNodes.forEach(function (c) { render(c, scope, out); });
+      return;
+    }
+    var el = node.cloneNode(false);
+    var refFn = null;
+    Array.prototype.slice.call(node.attributes).forEach(function (a) {
+      var name = a.name, val = a.value, m = val.match(WHOLE);
+      var lname = name.toLowerCase();
+      if (lname.indexOf('on') === 0 && m) {
+        el.removeAttribute(name);
+        var fn = get(scope, m[1]);
+        var ev = lname.slice(2);
+        if (ev === 'change') {
+          var t = (node.getAttribute('type') || '').toLowerCase();
+          if (node.tagName === 'TEXTAREA' || (node.tagName === 'INPUT' && t !== 'checkbox' && t !== 'file' && t !== 'radio')) ev = 'input';
+        }
+        if (typeof fn === 'function') el['on' + ev] = fn;
+        return;
+      }
+      if (lname === 'ref') { el.removeAttribute(name); if (m) refFn = get(scope, m[1]); return; }
+      if (lname.indexOf('hint-') === 0) { el.removeAttribute(name); return; }
+      var v = m ? get(scope, m[1]) : interp(val, scope);
+      if (BOOL[lname] && m) { el[lname === 'playsinline' ? 'playsInline' : lname] = !!v; if (v) el.setAttribute(name, ''); else el.removeAttribute(name); return; }
+      if (lname === 'value' && (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA')) { el.value = v == null ? '' : v; el.removeAttribute('value'); return; }
+      if (v === false || v == null) el.removeAttribute(name); else el.setAttribute(name, v);
+    });
+    node.childNodes.forEach(function (c) { render(c, scope, el); });
+    out.appendChild(el);
+    if (refFn) pendingRefs.push([el, refFn]);
+  }
+
+  window.mountDC = function (Component) {
+    var tpl = document.getElementById('dc-tpl');
+    var host = document.getElementById('app');
+    var comp = new Component({});
+    var scheduled = false;
+    function draw() {
+      scheduled = false;
+      var active = document.activeElement, id = active && active.id, ss = null, se = null;
+      try { if (id) { ss = active.selectionStart; se = active.selectionEnd; } } catch (e) {}
+      var scope = comp.renderVals();
+      var frag = document.createElement('div');
+      pendingRefs = [];
+      tpl.content.childNodes.forEach(function (c) { render(c, scope, frag); });
+      var map = new Map();
+      morphChildren(host, frag, map);
+      pendingRefs.forEach(function (r) { r[1](map.get(r[0]) || r[0]); });
+      if (id) { var again = document.getElementById(id); if (again) { again.focus(); try { if (ss != null) again.setSelectionRange(ss, se); } catch (e) {} } }
+    }
+    comp.setState = function (patch) {
+      this.state = Object.assign({}, this.state, typeof patch === 'function' ? patch(this.state) : patch);
+      if (!scheduled) { scheduled = true; requestAnimationFrame(draw); }
+    };
+    comp.forceUpdate = function () { draw(); };
+    draw();
+    if (comp.componentDidMount) comp.componentDidMount();
+  };
+  window.DCLogic = function DCLogic(props) { this.props = props || {}; this.state = {}; };
+})();
+
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const now = new Date();
+    this.state = Object.assign(this.fresh(), { ym: { y: now.getFullYear(), m: now.getMonth() } });
+    this.taken = {};
+  }
+  fresh() {
+    const now = new Date();
+    return { step: 1, cat: 'glam', service: 'glam', location: '', faces: 1, day: '', time: '', address: '', name: '', phone: '', email: '', event: '', allergies: '', photoOk: false, agree: false,
+      ym: { y: now.getFullYear(), m: now.getMonth() }, takenV: 0, loadingSlots: false, creating: false, err: '', booking: null, phase: 'form', copied: '' };
+  }
+  cfg() { return window.TSE_CONFIG || {}; }
+  sb() {
+    if (!this._sb && window.supabase && this.cfg().supabaseUrl) this._sb = window.supabase.createClient(this.cfg().supabaseUrl, this.cfg().supabaseKey);
+    return this._sb;
+  }
+  componentDidMount() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('tse_booking') || 'null');
+      if (saved && saved.token) { this.setState({ booking: saved, phase: 'waiting' }); this.poll(); }
+    } catch (e) {}
+    this.loadSlots(this.state.ym);
+  }
+  iso(y, m, d) { return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
+  async loadSlots(ym) {
+    const sb = this.sb(); if (!sb) return;
+    this.setState({ loadingSlots: true });
+    const last = new Date(ym.y, ym.m + 1, 0).getDate();
+    const { data } = await sb.rpc('taken_slots', { p_from: this.iso(ym.y, ym.m, 1), p_to: this.iso(ym.y, ym.m, last) });
+    (data || []).forEach((r) => { (this.taken[r.booking_date] = this.taken[r.booking_date] || {})[r.booking_time] = true; });
+    this.setState({ loadingSlots: false, takenV: this.state.takenV + 1 });
+  }
+  async createBooking(svcPerFace) {
+    const sb = this.sb(), s = this.state;
+    if (!sb) { this.setState({ err: 'Booking is not connected yet. Please WhatsApp Sharon to book.' }); return; }
+    this.setState({ creating: true, err: '', step: 5 });
+    const { data, error } = await sb.rpc('create_booking', {
+      p_service: s.service, p_location: s.location, p_date: s.day, p_time: s.time, p_faces: svcPerFace ? s.faces : 1,
+      p_name: s.name, p_phone: s.phone, p_email: s.email || null, p_event: s.event || null,
+      p_address: s.address || null, p_allergies: s.allergies || null, p_photo_ok: s.photoOk });
+    if (error) {
+      const taken = /taken/i.test(error.message);
+      if (taken) { this.taken = {}; this.loadSlots(s.ym); }
+      this.setState({ creating: false, step: taken ? 3 : 4, time: taken ? '' : s.time, err: error.message.replace(/^.*?:\s*/, '') || 'Something went wrong. Please try again.' });
+      return;
+    }
+    const booking = Object.assign({}, data, { name: s.name, phone: s.phone, address: s.address, allergies: s.allergies });
+    this.setState({ creating: false, booking: booking });
+  }
+  startWaiting() {
+    try { localStorage.setItem('tse_booking', JSON.stringify(this.state.booking)); } catch (e) {}
+    const sb = this.sb(), bk = this.state.booking;
+    if (sb && bk) sb.rpc('mark_sent', { p_token: bk.token }).then(() => {}, () => {});
+    this.setState({ phase: 'waiting' });
+    this.poll();
+  }
+  poll() {
+    if (this._timer) return;
+    const started = Date.now();
+    const tick = async () => {
+      const b = this.state.booking, sb = this.sb();
+      if (!b || !sb) { this._timer = null; return; }
+      const { data } = await sb.rpc('booking_status', { p_token: b.token });
+      const st = data && data.status;
+      if (st === 'confirmed' || st === 'declined' || st === 'expired' || st === 'cancelled') {
+        this._timer = null;
+        if (st !== 'confirmed') { try { localStorage.removeItem('tse_booking'); } catch (e) {} }
+        else { try { localStorage.setItem('tse_booking', JSON.stringify(Object.assign({}, b, { done: true }))); } catch (e) {} }
+        this.setState({ phase: st === 'confirmed' ? 'confirmed' : st });
+        return;
+      }
+      const wait = Date.now() - started < 10 * 60 * 1000 ? 4000 : 15000;
+      this._timer = setTimeout(tick, wait);
+    };
+    this._timer = setTimeout(tick, 300);
+  }
+  copy(text, key) {
+    try { navigator.clipboard.writeText(text); } catch (e) {}
+    this.setState({ copied: key });
+    setTimeout(() => { if (this.state.copied === key) this.setState({ copied: '' }); }, 2000);
+  }
+  renderVals() {
+    const s = this.state, cfg = this.cfg(), bank = cfg.bank || {};
+    const naira = (n) => '₦' + Number(n).toLocaleString('en-NG');
+    const SERVICES = [
+      { id: 'glam', cat: 'glam', name: 'Birthday / occasion glam', desc: 'Soft or full glam, priced by location.', mode: 'zone', perFace: true, locs: 'any' },
+      { id: 'shoot', cat: 'glam', name: 'Studio photoshoot glam', desc: 'Camera-ready glam at the Ojo studio.', mode: 'fixed', price: 30000, perFace: true, locs: 'studio' },
+      { id: 'trial', cat: 'bridal', name: 'Bridal consultation & trial', desc: 'Perfect the look before the day.', mode: 'fixed', price: 45000, locs: 'any' },
+      { id: 'bride', cat: 'bridal', name: 'Bride (wedding day glam)', desc: 'Long-wear glam for the big day.', mode: 'fixed', price: 170000, locs: 'any' },
+      { id: 'fullday', cat: 'bridal', name: 'Full-day bridal booking', desc: 'Sharon with you all day, touch-ups included.', mode: 'fixed', price: 200000, locs: 'any' },
+      { id: 'party', cat: 'bridal', name: 'Bridesmaids / bridal party', desc: 'Matching glam for your squad.', mode: 'fixed', price: 40000, perFace: true, locs: 'any' },
+      { id: 'editorial', cat: 'set', name: 'Editorial / creative makeup', desc: 'Concepts, colour and artistry.', mode: 'from', price: 50000, perFace: true, locs: 'any' },
+      { id: 'campaign', cat: 'set', name: 'Campaign / portfolio shoot', desc: 'Looks built for the lens.', mode: 'from', price: 100000, locs: 'any' },
+      { id: 'screen', cat: 'set', name: 'Brand, music video or TV', desc: 'On-set artistry and touch-ups.', mode: 'from', price: 350000, locs: 'any' },
+      { id: 't2w', cat: 'train', name: '2-week beginner training', desc: 'In-studio, hands-on.', mode: 'fixed', price: 150000, locs: 'studio' },
+      { id: 't1m', cat: 'train', name: '1-month beginner training', desc: 'In-studio, hands-on.', mode: 'fixed', price: 250000, locs: 'studio' },
+      { id: 't2m', cat: 'train', name: '2-month beginner training', desc: 'In-studio, full programme.', mode: 'fixed', price: 400000, locs: 'studio' },
+      { id: 'virtual', cat: 'train', name: 'Virtual 1-on-1 class', desc: 'Personal class over video call.', mode: 'fixed', price: 120000, locs: 'online' }
+    ];
+    const CATS = [{ id: 'glam', label: 'Glam' }, { id: 'bridal', label: 'Bridal' }, { id: 'set', label: 'Shoots & screen' }, { id: 'train', label: 'Training' }];
+    const LOCS = [
+      { id: 'studio', name: 'Studio, Ojo', desc: '26 Mosiu Ramoni Street', price: 30000 },
+      { id: 'ojo', name: 'Home service (Ojo axis)', desc: 'Ojo and surrounding areas', price: 55000 },
+      { id: 'mainland', name: 'Home service (Mainland)', desc: 'Ikeja, Surulere, Yaba and more', price: 90000 },
+      { id: 'island', name: 'Home service (Island)', desc: 'VI, Ikoyi, Lekki, Ajah', price: 120000 },
+      { id: 'online', name: 'Online', desc: 'Video call link sent after booking', price: 0 }
+    ];
+    const TIMES = ['6:00 AM', '8:00 AM', '10:00 AM', '12:00 PM', '2:00 PM', '4:00 PM'];
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const allowed = (o) => o.locs === 'studio' ? ['studio'] : (o.locs === 'online' ? ['online'] : ['studio', 'ojo', 'mainland', 'island']);
+    const svc = SERVICES.find((x) => x.id === s.service) || SERVICES[0];
+    const loc = LOCS.find((x) => x.id === s.location && allowed(svc).indexOf(x.id) > -1);
+    const cats = CATS.map((c) => ({ ...c, on: s.cat === c.id, off: s.cat !== c.id, pick: () => {
+      const first = SERVICES.find((x) => x.cat === c.id);
+      this.setState({ cat: c.id, service: first.id, location: '', faces: 1 });
+    } }));
+    const priceLabel = (o) => o.mode === 'zone' ? 'From ₦30,000' : (o.mode === 'from' ? 'From ' + naira(o.price) : naira(o.price)) + (o.perFace ? ' / face' : '');
+    const services = SERVICES.filter((o) => o.cat === s.cat).map((o) => ({ ...o, price: priceLabel(o), on: s.service === o.id, off: s.service !== o.id, pick: () => {
+      const a = allowed(o);
+      this.setState({ service: o.id, location: a.length === 1 ? a[0] : '', faces: o.perFace ? s.faces : 1 });
+    } }));
+    const locations = LOCS.filter((o) => allowed(svc).indexOf(o.id) > -1).map((o) => ({ ...o,
+      price: svc.mode === 'zone' ? naira(o.price) : (o.id === 'studio' || o.id === 'online' ? 'Included' : '+ travel'),
+      on: !!loc && loc.id === o.id, off: !loc || loc.id !== o.id,
+      pick: () => this.setState({ location: o.id }) }));
+    const unitNum = svc.mode === 'zone' ? (loc ? loc.price : null) : svc.price;
+    const faces = svc.perFace ? s.faces : 1;
+    const isHome = !!loc && ['ojo', 'mainland', 'island'].indexOf(loc.id) > -1;
+    const locNote = svc.locs === 'online' ? 'Virtual classes run on a video call.' : (svc.locs === 'studio' ? 'This service runs at the studio, 26 Mosiu Ramoni Street, Ojo.' : (svc.mode === 'zone' ? 'Studio is at 26 Mosiu Ramoni Street, Ojo. Home service is priced by zone.' : 'Studio is at 26 Mosiu Ramoni Street, Ojo. Home or venue service adds travel by zone.'));
+
+    // calendar
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const ym = s.ym, first = new Date(ym.y, ym.m, 1), last = new Date(ym.y, ym.m + 1, 0).getDate();
+    const days = [];
+    for (let i = 0; i < first.getDay(); i++) days.push({ blank: true });
+    for (let n = 1; n <= last; n++) {
+      const iso = this.iso(ym.y, ym.m, n), dt = new Date(ym.y, ym.m, n);
+      const t = this.taken[iso] || {};
+      const full = TIMES.every((x) => t[x]);
+      const closed = dt < today || full;
+      days.push({ n: n, on: !closed && s.day === iso, open: !closed && s.day !== iso, closed: closed, aria: n + ' ' + MONTHS[ym.m] + ', unavailable', pick: () => this.setState({ day: iso, time: '', err: '' }) });
+    }
+    const atFirst = ym.y === today.getFullYear() && ym.m === today.getMonth();
+    const goMonth = (d) => { const nd = new Date(ym.y, ym.m + d, 1); const nym = { y: nd.getFullYear(), m: nd.getMonth() }; this.setState({ ym: nym }); this.loadSlots(nym); };
+    const dayDate = s.day ? new Date(s.day + 'T00:00:00') : null;
+    const dayLabel = dayDate ? DOW[dayDate.getDay()] + ' ' + dayDate.getDate() + ' ' + MONTHS[dayDate.getMonth()] : '';
+    const tk = s.day ? (this.taken[s.day] || {}) : {};
+    const times = TIMES.map((t) => ({ t: t, taken: !!tk[t], on: !tk[t] && s.time === t, off: !tk[t] && s.time !== t, pick: () => this.setState({ time: t }) }));
+
+    const total = unitNum ? unitNum * faces : null;
+    const fromPfx = svc.mode === 'from' ? 'from ' : '';
+    const labels = ['Service', 'Location', 'Date & time', 'Details', 'Deposit'];
+    const steps = labels.map((l, i) => ({ n: '0' + (i + 1), label: l, bar: i + 1 <= s.step ? '#E8317A' : '#F3DDD4', color: i + 1 === s.step ? '#2B1A16' : '#7A6560' }));
+    const ok = { 1: !!s.service, 2: !!loc && (!isHome || s.address.trim().length > 4), 3: !!s.day && !!s.time, 4: s.name.trim().length > 1 && s.phone.trim().length > 6 && s.agree };
+    const valid = !!ok[s.step];
+    const set = (k) => (e) => this.setState({ [k]: e.target.value });
+
+    // booking (server values win once it exists)
+    const b = s.booking;
+    const bDate = b && b.date ? new Date(b.date + 'T00:00:00') : null;
+    const bkWhen = b ? (bDate ? DOW[bDate.getDay()].slice(0, 3) + ' ' + bDate.getDate() + ' ' + MONTHS[bDate.getMonth()].slice(0, 3) : '') + (b.time ? ', ' + b.time : '') : '';
+    const bFrom = b && b.price_is_from ? 'from ' : '';
+    const site = (cfg.siteUrl || location.origin).replace(/\/$/, '');
+    let waLink = '#';
+    if (b) {
+      const lines = [
+        "Hi Sharon ♡ I've just sent my deposit for The Sharon Effect.", '',
+        'Ref: ' + b.ref,
+        'Service: ' + b.service + (b.faces > 1 ? ' × ' + b.faces : ''),
+        'When: ' + bkWhen,
+        'Where: ' + b.location + (b.address ? ' — ' + b.address : ''),
+        'Deposit sent: ' + naira(b.deposit) + ' (total ' + bFrom + naira(b.total) + ')',
+        'Name: ' + b.name, 'WhatsApp: ' + b.phone
+      ];
+      if (b.allergies) lines.push('Allergies: ' + b.allergies);
+      lines.push('', 'My transfer receipt is attached.', '', 'Sharon, confirm here: ' + site + '/confirm.html?b=' + b.id);
+      waLink = 'https://wa.me/' + (cfg.whatsapp || '2349021059536') + '?text=' + encodeURIComponent(lines.join('\n'));
+    }
+    const ph = s.phase;
+    const problems = {
+      declined: ["Sharon couldn't confirm your payment", "She couldn't find your transfer yet. If you've paid, send her your receipt on WhatsApp and she'll sort it out."],
+      expired: ['Your slot hold expired', "We didn't get a confirmation within 6 hours, so the slot was released. If you've already paid, message Sharon and she'll rebook you."],
+      cancelled: ['This booking was cancelled', 'If this is a mistake, message Sharon on WhatsApp.']
+    };
+    const pr = problems[ph] || ['', ''];
+
+    return {
+      isForm: ph === 'form', isWaiting: ph === 'waiting', isConfirmed: ph === 'confirmed', isProblem: !!problems[ph],
+      problemTitle: pr[0], problemText: pr[1],
+      steps, services, locations, days, times, dayLabel, hasDay: !!s.day, loadingSlots: s.loadingSlots,
+      monthLabel: MONTHS[ym.m] + ' ' + ym.y, atFirstMonth: atFirst, prevOpacity: atFirst ? '0.35' : '1',
+      prevMonth: () => { if (!atFirst) goMonth(-1); }, nextMonth: () => goMonth(1),
+      is1: s.step === 1, is2: s.step === 2, is3: s.step === 3, is4: s.step === 4, is5: s.step === 5,
+      cats, locNote, showFaces: !!svc.perFace, hasTravelNote: isHome && svc.mode !== 'zone',
+      isHome, faces: s.faces,
+      inc: () => this.setState({ faces: Math.min(s.faces + 1, 20) }),
+      dec: () => this.setState({ faces: Math.max(s.faces - 1, 1) }),
+      address: s.address, setAddress: set('address'),
+      name: s.name, setName: set('name'), phone: s.phone, setPhone: set('phone'),
+      email: s.email, setEmail: set('email'), event: s.event, setEvent: set('event'),
+      allergies: s.allergies, setAllergies: set('allergies'),
+      photoOk: s.photoOk, togglePhoto: () => this.setState({ photoOk: !s.photoOk }),
+      agree: s.agree, toggleAgree: () => this.setState({ agree: !s.agree }),
+      sumService: b ? b.service : svc.name,
+      sumLocation: b ? b.location : (loc ? loc.name : '—'),
+      sumWhen: b ? bkWhen : (dayDate ? dayDate.getDate() + ' ' + MONTHS[dayDate.getMonth()].slice(0, 3) + (s.time ? ', ' + s.time : '') : '—'),
+      qtyLine: b ? (b.faces > 1 ? b.faces + ' × ' + bFrom + naira(b.total / b.faces) : bFrom + naira(b.total)) : (unitNum ? (faces > 1 ? faces + ' × ' + fromPfx + naira(unitNum) : fromPfx + naira(unitNum)) : '—'),
+      total: b ? bFrom + naira(b.total) : (total ? fromPfx + naira(total) : '—'),
+      deposit: b ? naira(b.deposit) : (total ? fromPfx + naira(Math.ceil(total / 2)) : '—'),
+      balance: b ? bFrom + naira(b.total - b.deposit) : (total ? fromPfx + naira(total - Math.ceil(total / 2)) : '—'),
+      creating: s.creating, hasBooking: !!b && !s.creating,
+      bookingRef: b ? b.ref : '', bkService: b ? b.service : '', bkWhen: bkWhen,
+      bankName: bank.name || '', bankNumber: bank.number || '', bankAccountName: bank.accountName || '',
+      copyNumber: () => this.copy(bank.number || '', 'num'), copyRef: () => this.copy(b ? b.ref : '', 'ref'),
+      copyNumberLabel: s.copied === 'num' ? 'Copied' : 'Copy', copyRefLabel: s.copied === 'ref' ? 'Copied' : 'Copy',
+      waLink: waLink, onSent: () => this.startWaiting(),
+      err: s.err, hasErr: !!s.err,
+      canBack: s.step > 1 && s.step < 5, noBack: s.step === 1 || s.step === 5,
+      showNext: s.step < 5,
+      nextDisabled: !valid, nextOpacity: valid ? '1' : '0.35',
+      next: () => { if (!valid) return; if (s.step === 4) this.createBooking(!!svc.perFace); else this.setState({ step: s.step + 1, err: '' }); },
+      back: () => this.setState({ step: Math.max(1, s.step - 1), err: '' }),
+      restart: () => { try { localStorage.removeItem('tse_booking'); } catch (e) {} this._timer = null; this.taken = {}; const f = this.fresh(); this.setState(f); this.loadSlots(f.ym); }
+    };
+  }
+}
+mountDC(Component);
+</script>
+</body>
+</html>
